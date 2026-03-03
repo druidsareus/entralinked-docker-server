@@ -1,0 +1,26 @@
+# Docker
+.docker
+docker-compose.override.yml
+
+# Data
+data/
+*.db
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.iml
+*.sublime-project
+
+# Backup
+*.bak
+*.backup
+*-backup-*

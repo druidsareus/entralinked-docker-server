@@ -1,0 +1,15 @@
+services:
+  entralinked:
+    build: .
+    container_name: entralinked
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "29900:29900"
+      - "53:53/udp"
+    volumes:
+      - ./config.json:/app/config.json
+      - ./data:/app/data
+    environment:
+      JAVA_OPTS: "-Xmx512m"

@@ -1,0 +1,6 @@
+data
+config.json
+.git
+.gradle
+build
+*.log

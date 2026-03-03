@@ -1,0 +1,152 @@
+═══════════════════════════════════════════════════════════════
+DEPLOYMENT FILES CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+CORE DEPLOYMENT FILES:
+✓ Dockerfile                 - Docker image definition
+✓ docker-compose.yml         - Container configuration
+✓ config.json                - Server settings
+✓ .dockerignore              - Build optimization
+
+DEPLOYMENT SCRIPTS:
+✓ quick-deploy.sh            - One-command deployment (easiest)
+✓ install-docker.sh          - Docker installer only
+
+DOCUMENTATION (Read in order):
+1. HOW_TO_DEPLOY.md          - QUICKSTART (read first!)
+2. COPY_PASTE_COMMANDS.md    - Ready-to-paste commands
+3. VPS_DEPLOYMENT.md         - VPS-specific guide
+4. DEPLOY.md                 - Detailed full guide
+5. DEPLOYMENT_SUMMARY.txt    - Quick reference
+
+OTHER FILES:
+✓ FILE_CHECKLIST.txt         - This file
+✓ setup-guide.txt            - Basic setup info
+
+═══════════════════════════════════════════════════════════════
+DEPLOYMENT STEPS
+═══════════════════════════════════════════════════════════════
+
+1. PREPARE (On your local machine)
+   □ Copy all files (or have SSH access to VPS)
+   □ Note your VPS IP address
+   □ Have SSH key ready
+
+2. TRANSFER TO VPS (Choose one method)
+   □ SCP files: scp Dockerfile root@VPS_IP:~/entralinked-vps/
+   □ SSH and create files directly on VPS
+   □ Use Git to clone to VPS
+
+3. SSH INTO VPS
+   □ ssh root@YOUR_VPS_IP
+
+4. DEPLOY (Choose one method)
+   
+   METHOD A (Fastest - 5 min):
+   bash <(curl -s https://raw.../quick-deploy.sh) YOUR_VPS_IP
+   
+   METHOD B (Manual - 10 min):
+   □ Copy commands from COPY_PASTE_COMMANDS.md
+   □ Paste into VPS terminal
+   
+   METHOD C (Step-by-step - 15 min):
+   □ Follow HOW_TO_DEPLOY.md instructions
+
+5. VERIFY
+   □ docker compose ps              (check running)
+   □ docker compose logs            (check logs)
+   □ curl http://VPS_IP/            (test HTTP)
+   □ sudo ss -tlnup | grep java     (check ports)
+
+6. CONFIGURE DS
+   □ Nintendo DS Settings → WiFi
+   □ Set DNS: YOUR_VPS_IP
+   □ Test connection
+   □ Enjoy WiFi features!
+
+7. MAINTENANCE
+   □ View logs: docker compose logs -f
+   □ Restart: docker compose restart
+   □ Update: docker compose build --no-cache
+
+═══════════════════════════════════════════════════════════════
+FILE DESCRIPTIONS
+═══════════════════════════════════════════════════════════════
+
+Dockerfile
+├─ Base image: eclipse-temurin:17-jre (Java 17)
+├─ Downloads: Entralinked v1.4.1 from GitHub
+├─ Enables: TLS 1.0, TLSv1.1, TLSv1.2, TLSv1.3
+├─ Disables: No algorithms (full DS compatibility)
+├─ Exposes: Ports 80, 443, 29900, 53
+└─ Size: ~500MB after build
+
+docker-compose.yml
+├─ Container: entralinked
+├─ Restart: unless-stopped (auto-restart)
+├─ Ports: Maps all 4 required ports
+├─ Volumes: Mounts config.json and data/
+├─ Environment: Java heap 512MB
+└─ Build: Uses Dockerfile
+
+config.json
+├─ hostName: YOUR_VPS_IP (SET THIS!)
+├─ clearPlayerDreamInfoOnWake: true
+├─ allowOverwritingPlayerDreamInfo: false
+├─ allowPlayerGameVersionMismatch: false
+└─ allowWfcRegistrationThroughLogin: true
+
+.dockerignore
+├─ Excludes: data/, config.json, .git, .gradle
+├─ Excludes: build/, *.log
+└─ Purpose: Speeds up Docker build
+
+quick-deploy.sh
+├─ Automates: Docker installation
+├─ Automates: File creation
+├─ Automates: Build and deploy
+├─ Time: ~5 minutes
+└─ Usage: bash quick-deploy.sh YOUR_VPS_IP
+
+install-docker.sh
+├─ Installs: Docker and Docker Compose
+├─ Enables: Docker service
+├─ Adds: Current user to docker group
+└─ Purpose: Standalone Docker installation
+
+═══════════════════════════════════════════════════════════════
+BEFORE YOU START
+═══════════════════════════════════════════════════════════════
+
+Have ready:
+□ Your VPS IP address (e.g., 187.124.81.115)
+□ SSH access to Debian 13 VPS (root or sudo)
+□ All 4 ports available (80, 443, 29900, 53)
+□ ~2GB disk space for Docker image
+□ ~500MB free RAM
+
+Optional but recommended:
+□ Firewall rules allowing the 4 ports
+□ Domain name (for custom config)
+□ Backup location for data/
+
+═══════════════════════════════════════════════════════════════
+QUICK DECISION TREE
+═══════════════════════════════════════════════════════════════
+
+Want fastest deployment?
+→ Use quick-deploy.sh (5 min)
+
+Want most control?
+→ Follow COPY_PASTE_COMMANDS.md (10 min)
+
+Want to understand everything?
+→ Read HOW_TO_DEPLOY.md → VPS_DEPLOYMENT.md (15 min)
+
+Having trouble?
+→ Check DEPLOY.md for troubleshooting
+
+═══════════════════════════════════════════════════════════════
+
+Everything is ready. Go deploy! 🚀
+

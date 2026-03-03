@@ -1,0 +1,82 @@
+name: Bug Report
+description: Report a deployment or server issue
+title: "[BUG] "
+labels: ["bug"]
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue you're experiencing
+      placeholder: "I'm having trouble with..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the issue
+      placeholder: |
+        1. Run command...
+        2. Then...
+        3. Error appears...
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Error Message
+      description: Include full error output
+      placeholder: "Paste error message here"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      options:
+        - Debian 13
+        - Ubuntu 24.04
+        - Ubuntu 22.04
+        - Other Linux
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Docker and system info
+      placeholder: |
+        Docker version: $(docker --version)
+        Docker Compose version: $(docker compose version)
+        Uname: $(uname -a)
+      value: |
+        Docker version: 
+        Docker Compose version: 
+        Uname: 
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Include relevant logs (docker compose logs)
+      placeholder: "Paste logs here"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I read the README.md
+        - label: I checked DEPLOY.md troubleshooting
+        - label: I tried the one-liner deployment

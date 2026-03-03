@@ -1,0 +1,7 @@
+{
+  "hostName" : "187.124.81.115",
+  "clearPlayerDreamInfoOnWake" : true,
+  "allowOverwritingPlayerDreamInfo" : false,
+  "allowPlayerGameVersionMismatch" : false,
+  "allowWfcRegistrationThroughLogin" : true
+}
